@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset = "UTF-8>
+<body bgcolor = "pink"> 
+  <style>
+    body {
+      margin: 0;
+      background: pink;
+      color: white; 
+      font-family: "luminari";
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .lyrics {
+      text-align: center;
+      line-height: 2;
+      max-height: 200px;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+
+    .line {
+      opacity: 0.3;
+      font-size: 24px;
+      transition: 0.4s;
+      font-weight: 600;
+      
+    }
+
+    .active {
+      opacity: 1;
+      font-size: 32px;
+      color:black;
+      text-stadium: 0 0 10px #00ffcc;
+    }
+  </style>
+
+<audio id="audio" src="song.m4a" controls></audio>
+
+<div class="lyrics">
+  <p class="line" data-time="8">tu kahe to tere hi </p>
+  <p class="line" data-time="11">kadam ke main nishano pe</p>
+  <p class="line" data-time="14">chalun rukun ishaare pe..</p>
+  <p class="line" data-time="20"> tu kahe too khuwabon ka</p>
+  <p class="line" data-time="23"> banake mein bahana sa</p>
+  <p class="line" data-time="26"> mila krun sirhane pe</p>
+  <p class="line" data-time="31"> ho tumse  dil ki baatein sikhi</p>
+  <p class="line" data-time="35"> tumse hi ye rahain sikhi</p>
+  <p class="line" data-time="38">tum pe marke mein toh ji gaya.. </p>
+
+</div>
+
+<script>
+const audio = document.getElementById("audio");
+const lines = document.querySelectorAll(".line");
+
+audio.addEventListener("timeupdate", () => {
+  let t = audio.currentTime;
+
+  lines.forEach((line, index) => {
+    let start = parseFloat(line.dataset.time);
+    let next = lines[index + 1]?.dataset.time || 999;
+
+    if (t >= start && t < next) {
+      line.classList.add("active");
+    } else {
+      line.classList.remove("active");
+    }
+  });
+});
+</script>
+
+
+
+
+</head>
+</body>
+
+
+</html>
